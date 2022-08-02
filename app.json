@@ -1,0 +1,29 @@
+{
+  "id": "11522389-6c1a-42d5-afe2-7cd778e066a6",
+  "name": "HelloWorldAL",
+  "publisher": "AUTOCONT a.s.",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "https://www.autocont.cz",
+  "EULA": "https://www.autocont.cz",
+  "help": "https://www.autocont.cz",
+  "url": "https://www.autocont.cz",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "20.0.0.0",
+  "features": ["TranslationFile"],
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": false,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "9.0"
+}

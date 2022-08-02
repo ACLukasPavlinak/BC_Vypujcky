@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "SandBox_Vypujcky",
+            "request": "launch",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "SandBox_Vypujcky",
+            "startupObjectId": 9022,
+            "startupObjectType": "Page",
+            "breakOnError": true,
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "Recreate" //Při spuštění F5 vždy obnoví data do původního stavu (Jakmile znovu spustíš kód, zadaná data se smažou)
+        }
+    ]
+}
