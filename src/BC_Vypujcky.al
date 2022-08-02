@@ -2,15 +2,15 @@
 // Remember that object names and IDs should be unique across all extensions.
 // AL snippets start with t*, like tpageext - give them a try and happy coding!
 
-table 50100 DevicesTab
+table 50100 DevTab
 {
     DataClassification = ToBeClassified;
     fields
     {
-        field(1; No; Integer)
+        field(1; NoDev; Integer)
         {
             DataClassification = ToBeClassified;
-            Caption = 'No.';
+            Caption = 'NoDev';
             Description = 'Musí být jedinečné';
             AutoIncrement = true;
         }
@@ -38,19 +38,19 @@ table 50100 DevicesTab
     }
     keys
     {
-        key(PK; No)
+        key(PK; NoDev)
         {
             Clustered = true;
         }
     }
 }
 
-page 50100 DevicesPage
+page 50100 DevPage
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = DevicesTab;
+    SourceTable = DevTab;
     Caption = 'Zařízení na vypůjčení';
 
 
@@ -60,7 +60,7 @@ page 50100 DevicesPage
         {
             repeater(Group)
             {
-                field(No; Rec.No)
+                field(No; Rec.NoDev)
                 {
                     ApplicationArea = All;
                     Style = Strong;
@@ -93,6 +93,38 @@ page 50100 DevicesPage
                 ApplicationArea = All;
                 RunObject = codeunit "Document Totals";
             }
+        }
+    }
+}
+
+table 50101 DevRent
+{
+    DataClassification = ToBeClassified;
+    fields
+    {
+        field(1; NoRent; Integer)
+        {
+            AutoIncrement = true;
+            Caption = 'NoRent';
+        }
+
+        field(2; NoDev; Integer)
+        {
+            Caption = 'NoDev';
+            TableRelation = DevTab.NoDev;
+        }
+        field(3; NoEmp; Integer)
+        {
+            Caption = 'NoDev';
+            TableRelation = Employee."No.";
+        }
+    }
+
+    keys
+    {
+        key(PK; NoRent)
+        {
+            Clustered = true;
         }
     }
 }
