@@ -113,7 +113,7 @@ table 50101 RentDev
             Caption = 'Číslo zařízení';
             TableRelation = DevTab.NoDev;
         }
-        field(3; NoEmp; Integer)
+        field(3; NoEmp; Code[10])
         {
             Caption = 'Číslo zaměstnance';
             TableRelation = Employee."No.";
@@ -137,7 +137,7 @@ table 50101 RentDev
         }
 
         field(7; Contact; Text[50]) //Nejsem si jistý co přesně by mělo být pod pojmem Contact
-                                    //Zodpovědné osoba? Telefonní číslo? Nevím...
+                                    //Zodpovědná osoba? Telefonní číslo? Nevím...
         {
             Caption = 'Kontakt';
         }
