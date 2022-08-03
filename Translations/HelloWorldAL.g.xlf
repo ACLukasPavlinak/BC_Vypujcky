@@ -3,30 +3,75 @@
   <file datatype="xml" source-language="en-US" target-language="en-US" original="HelloWorldAL">
     <body>
       <group id="body">
-        <trans-unit id="Table 2536907424 - Field 636392376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Amount</source>
+        <trans-unit id="Table 3009710092 - Field 636392376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Počet</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table DevicesTab - Field Amount - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table DevTab - Field Amount - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2536907424 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Description</source>
+        <trans-unit id="Table 3009710092 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Popis</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table DevicesTab - Field Description - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table DevTab - Field Description - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2536907424 - Field 2961552353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Name</source>
+        <trans-unit id="Table 3009710092 - Field 2961552353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Název</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table DevicesTab - Field Name - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table DevTab - Field Name - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Table 2536907424 - Field 949215307 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>No.</source>
+        <trans-unit id="Table 3009710092 - Field 2514449978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Číslo zařízení</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Table DevicesTab - Field No - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table DevTab - Field NoDev - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 1249698340 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Table 2645064470 - Field 3993128796 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Kontakt</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field Contact - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 2514449978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Číslo zařízení</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field NoDev - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 3415266859 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Číslo zaměstnance</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field NoEmp - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 3973500616 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Číslo výpůjčky</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field NoRent - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 3283720062 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Od kdy</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field Since - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 513339096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field Status - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 513339096 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Vypůjčeno, Vráceno, Po Lhůtě</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field Status - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 4011129519 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Do kdy</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field Till - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1508973608 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Zařízení na vypůjčení</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page DevicesPage - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page DevPage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 759056866 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Výpůjčky</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page RentPage - Property Caption</note>
         </trans-unit>
       </group>
     </body>

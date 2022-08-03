@@ -122,8 +122,8 @@ table 50101 RentDev
 
         field(4; Status; Option)
         {
-            OptionMembers = "Vráceno","Vypůjčeno","Po lhůtě";
-            OptionCaption = 'Vráceno, Vypůjčeno, Po Lhůtě';
+            OptionMembers = "Vypůjčeno","Vráceno","Po lhůtě";
+            OptionCaption = 'Vypůjčeno, Vráceno, Po Lhůtě';
         }
 
         field(5; Since; Date)
