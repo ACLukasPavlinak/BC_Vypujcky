@@ -4,7 +4,6 @@
 
 //TODO: kontrola vypujcek a pripadne zvyrazneni proslych
 //FIXME: zamezeni pridavani nekoretnich zaznamu napr. NoDev == 0, NoEmp == 0, atd...
-//TODO: pridani vychozich hodnot od do a osetreni aby data byly smyslupny napr. od 18.5. do 17.5.
 
 
 table 50100 DevTab
@@ -164,7 +163,6 @@ page 50101 RentPage
     SourceTable = RentDev;
     Caption = 'Výpůjčky';
 
-
     layout
     {
         area(Content)
@@ -180,6 +178,7 @@ page 50101 RentPage
                 field(NoDev; Rec.NoDev)
                 {
                     ApplicationArea = All;
+                    NotBlank = true;
 
                     trigger OnValidate()
                     var
@@ -202,6 +201,7 @@ page 50101 RentPage
                 field(NoEmp; Rec.NoEmp)
                 {
                     ApplicationArea = All;
+                    NotBlank = true;
 
                     trigger OnValidate()
                     var
@@ -218,21 +218,25 @@ page 50101 RentPage
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
+                    NotBlank = true;
                 }
 
                 field(Since; Rec.Since)
                 {
                     ApplicationArea = All;
+                    NotBlank = true;
                 }
 
                 field(Till; Rec.Till)
                 {
                     ApplicationArea = All;
+                    NotBlank = true;
                 }
 
                 field(Contact; Rec.Contact)
                 {
                     ApplicationArea = All;
+                    NotBlank = true;
                     Editable = false;
                 }
             }
@@ -250,4 +254,23 @@ page 50101 RentPage
             }
         }
     }
+
+
+    trigger OnModifyRecord(): Boolean
+    begin
+        if Rec.Since > Rec.Till then begin
+            Rec.Till := Rec.Since;
+            Message('Zadal jsi špatny datum');
+        end;
+
+        if Rec.NoDev = 0 then begin
+            Message('Nebylo zvoleno zařízení!!!');
+        end;
+
+    end;
+
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    begin
+        Rec.Since := DT2DATE(CurrentDateTime);
+    end;
 }
