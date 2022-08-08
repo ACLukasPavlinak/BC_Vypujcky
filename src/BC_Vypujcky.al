@@ -2,6 +2,11 @@
 // Remember that object names and IDs should be unique across all extensions.
 // AL snippets start with t*, like tpageext - give them a try and happy coding!
 
+//TODO: kontrola vypujcek a pripadne zvyrazneni proslych
+//FIXME: zamezeni pridavani nekoretnich zaznamu napr. NoDev == 0, NoEmp == 0, atd...
+//TODO: pridani vychozich hodnot od do a osetreni aby data byly smyslupny napr. od 18.5. do 17.5.
+
+
 table 50100 DevTab
 {
     DataClassification = ToBeClassified;
@@ -113,12 +118,12 @@ table 50101 RentDev
             Caption = 'Číslo zařízení';
             TableRelation = DevTab.NoDev;
         }
-        field(3; NoEmp; Code[10])
+
+        field(3; NoEmp; Code[20])
         {
             Caption = 'Číslo zaměstnance';
             TableRelation = Employee."No.";
         }
-
 
         field(4; Status; Option)
         {
@@ -136,8 +141,7 @@ table 50101 RentDev
             Caption = 'Do kdy';
         }
 
-        field(7; Contact; Text[50]) //Nejsem si jistý co přesně by mělo být pod pojmem Contact
-                                    //Zodpovědná osoba? Telefonní číslo? Nevím...
+        field(7; Contact; Text[50])
         {
             Caption = 'Kontakt';
         }
@@ -176,11 +180,39 @@ page 50101 RentPage
                 field(NoDev; Rec.NoDev)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        dev: Record DevTab;
+                    begin
+                        while (dev.NoDev <> Rec.NoDev) do begin
+                            dev.Next();
+                        end;
+                        if dev.Amount > 0 then begin
+                            dev.Amount := dev.Amount - 1;
+                            dev.Modify();
+                        end else begin
+                            Rec.NoDev := 0;
+                            Message('Zařízení není momenetálně na skladě... :(');
+                        end;
+
+                    end;
                 }
 
                 field(NoEmp; Rec.NoEmp)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        RefEmp: Record Employee;
+                    begin
+                        while (RefEmp."No." <> Rec.NoEmp) do begin
+                            RefEmp.Next();
+                        end;
+
+                        Rec.Contact := RefEmp."Phone No.";
+                    end;
                 }
 
                 field(Status; Rec.Status)
@@ -201,6 +233,7 @@ page 50101 RentPage
                 field(Contact; Rec.Contact)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
         }
