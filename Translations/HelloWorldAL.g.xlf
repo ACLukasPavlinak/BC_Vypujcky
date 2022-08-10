@@ -43,6 +43,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field NoRent - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 1430172545 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Číslo zařízení</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field PrevNoDev - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2645064470 - Field 3283720062 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Od kdy</source>
           <note from="Developer" annotates="general" priority="2"></note>

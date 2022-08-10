@@ -2,8 +2,7 @@
 // Remember that object names and IDs should be unique across all extensions.
 // AL snippets start with t*, like tpageext - give them a try and happy coding!
 
-//TODO: kontrola vypujcek a pripadne zvyrazneni proslych
-//FIXME: zamezeni pridavani nekoretnich zaznamu napr. NoDev == 0, NoEmp == 0, atd...
+//TODO: zvyrazneni proslych vypujcek
 
 
 table 50100 DevTab
@@ -87,18 +86,6 @@ page 50100 DevPage
             }
         }
     }
-
-    actions
-    {
-        area(Navigation)
-        {
-            action(NewAction)
-            {
-                ApplicationArea = All;
-                RunObject = codeunit "Document Totals";
-            }
-        }
-    }
 }
 
 table 50101 RentDev
@@ -118,29 +105,35 @@ table 50101 RentDev
             TableRelation = DevTab.NoDev;
         }
 
-        field(3; NoEmp; Code[20])
+        field(3; PrevNoDev; Integer)
+        {
+            Caption = 'Číslo zařízení';
+            TableRelation = DevTab.NoDev;
+        }
+
+        field(4; NoEmp; Code[20])
         {
             Caption = 'Číslo zaměstnance';
             TableRelation = Employee."No.";
         }
 
-        field(4; Status; Option)
+        field(5; Status; Option)
         {
-            OptionMembers = "Vypůjčeno","Vráceno","Po lhůtě";
+            OptionMembers = "Vypujceno","Vraceno","PoLhute";
             OptionCaption = 'Vypůjčeno, Vráceno, Po Lhůtě';
         }
 
-        field(5; Since; Date)
+        field(6; Since; Date)
         {
             Caption = 'Od kdy';
         }
 
-        field(6; Till; Date)
+        field(7; Till; Date)
         {
             Caption = 'Do kdy';
         }
 
-        field(7; Contact; Text[50])
+        field(8; Contact; Text[50])
         {
             Caption = 'Kontakt';
         }
@@ -179,22 +172,44 @@ page 50101 RentPage
                 {
                     ApplicationArea = All;
                     NotBlank = true;
+                    ShowMandatory = true;
+                    BlankZero = true;
+
 
                     trigger OnValidate()
                     var
-                        dev: Record DevTab;
+                        dev, dev2 : Record DevTab;
+                        i: Integer;
                     begin
-                        while (dev.NoDev <> Rec.NoDev) do begin
-                            dev.Next();
-                        end;
-                        if dev.Amount > 0 then begin
-                            dev.Amount := dev.Amount - 1;
-                            dev.Modify();
-                        end else begin
-                            Rec.NoDev := 0;
-                            Message('Zařízení není momenetálně na skladě... :(');
-                        end;
+                        //pokud se nezmeni zarizeni nic se nebude delat
+                        if Rec.NoDev <> Rec.PrevNoDev then begin
 
+
+                            for i := 1 to dev.Count() do begin
+                                if dev.NoDev <> Rec.NoDev then
+                                    dev.Next();
+                            end;
+
+                            if dev.Amount > 0 then begin
+                                dev.Amount := dev.Amount - 1;
+                                dev.Modify();
+                            end else begin
+                                Rec.NoDev := 0;
+                                Message('Zařízení není momenetálně na skladě... :(');
+                            end;
+
+                            if Rec.PrevNoDev <> 0 then begin
+                                for i := 1 to dev2.Count() do begin
+                                    if dev2.NoDev <> Rec.PrevNoDev then
+                                        dev2.Next();
+                                end;
+
+                                dev2.Amount := dev2.Amount + 1;
+                                dev2.Modify();
+                            end;
+
+                            Rec.PrevNoDev := Rec.NoDev;
+                        end;
                     end;
                 }
 
@@ -202,16 +217,20 @@ page 50101 RentPage
                 {
                     ApplicationArea = All;
                     NotBlank = true;
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
+                        i: Integer;
                         RefEmp: Record Employee;
                     begin
-                        while (RefEmp."No." <> Rec.NoEmp) do begin
-                            RefEmp.Next();
+                        //vyplneni kontaktu na zaklade cisla zamestnance
+                        for i := 1 to RefEmp.Count() do begin
+                            if RefEmp."No." <> Rec.NoEmp then
+                                RefEmp.Next();
                         end;
 
-                        Rec.Contact := RefEmp."Phone No.";
+                        Rec.Contact := RefEmp."E-Mail";
                     end;
                 }
 
@@ -219,6 +238,7 @@ page 50101 RentPage
                 {
                     ApplicationArea = All;
                     NotBlank = true;
+                    Editable = false;
                 }
 
                 field(Since; Rec.Since)
@@ -231,6 +251,7 @@ page 50101 RentPage
                 {
                     ApplicationArea = All;
                     NotBlank = true;
+                    ShowMandatory = true;
                 }
 
                 field(Contact; Rec.Contact)
@@ -245,32 +266,85 @@ page 50101 RentPage
 
     actions
     {
-        area(Navigation)
+        area(Processing)
         {
-            action(NewAction)
+            action("Změna stavu")
             {
                 ApplicationArea = All;
-                RunObject = codeunit "Document Totals";
+                trigger OnAction()
+                begin
+                    Rec.Status := Rec.Status::Vraceno;
+                    Rec.Modify();
+                end;
             }
         }
     }
 
 
     trigger OnModifyRecord(): Boolean
+    var
+        mess: Text;
     begin
+        //detekce nevyplnenych poli a nasledne upozorneni uzivatele
         if Rec.Since > Rec.Till then begin
             Rec.Till := Rec.Since;
-            Message('Zadal jsi špatny datum');
+            mess := mess + 'Zadal jsi špatny datum.\';
         end;
 
         if Rec.NoDev = 0 then begin
-            Message('Nebylo zvoleno zařízení!!!');
+            mess := mess + 'Nebylo zvoleno zařízení.\';
         end;
 
+        if Rec.NoEmp = '' then begin
+            mess := mess + 'Nebyl zvolen zamestnanec.';
+        end;
+
+        if mess <> '' then begin
+            Message(mess);
+        end;
     end;
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
+        //automaticke vlozeni pocatecniho data na dnesni datum
         Rec.Since := DT2DATE(CurrentDateTime);
+    end;
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        i: Integer;
+        RefDev: Record DevTab;
+    begin
+        //pokud je vyplneny cislo zarizeni tak se pri smazani zvysi pocet zarizeni
+        if Rec.NoDev <> 0 then begin
+            for i := 1 to RefDev.Count() do begin
+                if RefDev.NoDev <> Rec.NoDev then
+                    RefDev.Next();
+            end;
+
+            RefDev.Amount := RefDev.Amount + 1;
+            RefDev.Modify();
+        end;
+    end;
+
+    trigger OnOpenPage()
+    var
+        flag: Boolean;
+        i: Integer;
+        RefRent: Record RentDev;
+    begin
+        flag := false;
+        RefRent.Next();
+        for i := 1 to RefRent.Count() do begin
+            if (RefRent.Status = RefRent.Status::Vypujceno) and (RefRent.Till < DT2DATE(CurrentDateTime)) then begin
+                RefRent.Status := RefRent.Status::PoLhute;
+                RefRent.Modify();
+                flag := true;
+            end;
+            RefRent.Next();
+        end;
+        if flag then begin
+            Message('Výpůjčka je po Lhůtě');
+        end;
     end;
 }

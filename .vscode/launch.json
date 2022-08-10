@@ -13,7 +13,7 @@
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
-            "schemaUpdateMode": "Recreate" //Při spuštění F5 vždy obnoví data do původního stavu (Jakmile znovu spustíš kód, zadaná data se smažou)
+            //"schemaUpdateMode": "Recreate" //Při spuštění F5 vždy obnoví data do původního stavu (Jakmile znovu spustíš kód, zadaná data se smažou)
         }
     ]
 }
