@@ -2,9 +2,6 @@
 // Remember that object names and IDs should be unique across all extensions.
 // AL snippets start with t*, like tpageext - give them a try and happy coding!
 
-//TODO: zvyrazneni proslych vypujcek
-
-
 table 50100 DevTab
 {
     DataClassification = ToBeClassified;
@@ -67,6 +64,7 @@ page 50100 DevPage
                 {
                     ApplicationArea = All;
                     Style = Strong;
+                    Editable = false;
                 }
 
                 field(Name; Rec.Name)
@@ -107,7 +105,7 @@ table 50101 RentDev
 
         field(3; PrevNoDev; Integer)
         {
-            Caption = 'Číslo zařízení';
+            Caption = 'Předchozí číslo zařízení';
             TableRelation = DevTab.NoDev;
         }
 
@@ -123,17 +121,22 @@ table 50101 RentDev
             OptionCaption = 'Vypůjčeno, Vráceno, Po Lhůtě';
         }
 
-        field(6; Since; Date)
+        field(6; statusStyle; Text[50])
+        {
+            Caption = 'Styl statusu';
+        }
+
+        field(7; Since; Date)
         {
             Caption = 'Od kdy';
         }
 
-        field(7; Till; Date)
+        field(8; Till; Date)
         {
             Caption = 'Do kdy';
         }
 
-        field(8; Contact; Text[50])
+        field(9; Contact; Text[50])
         {
             Caption = 'Kontakt';
         }
@@ -166,6 +169,7 @@ page 50101 RentPage
                 {
                     ApplicationArea = All;
                     Style = Strong;
+                    Editable = false;
                 }
 
                 field(NoDev; Rec.NoDev)
@@ -179,17 +183,16 @@ page 50101 RentPage
                     trigger OnValidate()
                     var
                         dev, dev2 : Record DevTab;
-                        i: Integer;
                     begin
                         //pokud se nezmeni zarizeni nic se nebude delat
                         if Rec.NoDev <> Rec.PrevNoDev then begin
-
-
+                            //najde se pozadovany prvek
                             for i := 1 to dev.Count() do begin
                                 if dev.NoDev <> Rec.NoDev then
                                     dev.Next();
                             end;
 
+                            //pokud je dostatecne mnozstvi tak se odebere jinak zahlásí chybu
                             if dev.Amount > 0 then begin
                                 dev.Amount := dev.Amount - 1;
                                 dev.Modify();
@@ -198,6 +201,7 @@ page 50101 RentPage
                                 Message('Zařízení není momenetálně na skladě... :(');
                             end;
 
+                            //pokud doslo ke zmene zarizeni musi se pridat predchozimu
                             if Rec.PrevNoDev <> 0 then begin
                                 for i := 1 to dev2.Count() do begin
                                     if dev2.NoDev <> Rec.PrevNoDev then
@@ -221,7 +225,6 @@ page 50101 RentPage
 
                     trigger OnValidate()
                     var
-                        i: Integer;
                         RefEmp: Record Employee;
                     begin
                         //vyplneni kontaktu na zaklade cisla zamestnance
@@ -239,6 +242,7 @@ page 50101 RentPage
                     ApplicationArea = All;
                     NotBlank = true;
                     Editable = false;
+                    StyleExpr = Rec.statusStyle;
                 }
 
                 field(Since; Rec.Since)
@@ -272,14 +276,28 @@ page 50101 RentPage
             {
                 ApplicationArea = All;
                 trigger OnAction()
+                var
+                    RefDev: Record DevTab;
                 begin
+                    //zmena stavu na vraceno a pridani poctu zarizeni na skladu
                     Rec.Status := Rec.Status::Vraceno;
                     Rec.Modify();
+
+                    for i := 1 to RefDev.Count() do begin
+                        if RefDev.NoDev <> Rec.NoDev then begin
+                            RefDev.Next();
+                        end;
+                    end;
+
+                    RefDev.Amount := RefDev.Amount + 1;
+                    RefDev.Modify();
                 end;
             }
         }
     }
 
+    protected var
+        i: Integer;
 
     trigger OnModifyRecord(): Boolean
     var
@@ -308,11 +326,11 @@ page 50101 RentPage
     begin
         //automaticke vlozeni pocatecniho data na dnesni datum
         Rec.Since := DT2DATE(CurrentDateTime);
+        Rec.statusStyle := 'Strong';
     end;
 
     trigger OnDeleteRecord(): Boolean
     var
-        i: Integer;
         RefDev: Record DevTab;
     begin
         //pokud je vyplneny cislo zarizeni tak se pri smazani zvysi pocet zarizeni
@@ -330,9 +348,9 @@ page 50101 RentPage
     trigger OnOpenPage()
     var
         flag: Boolean;
-        i: Integer;
         RefRent: Record RentDev;
     begin
+        //kontrola jestli neni nejaka vypujcka po lhute, pokud ano nastavi se priznak a pote se vypise zprava 
         flag := false;
         RefRent.Next();
         for i := 1 to RefRent.Count() do begin
@@ -346,5 +364,25 @@ page 50101 RentPage
         if flag then begin
             Message('Výpůjčka je po Lhůtě');
         end;
+    end;
+
+    trigger OnAfterGetRecord()
+    var
+        RefRent: Record RentDev;
+    begin
+        //zabarveni pole status podle hodnoty v ní
+        RefRent.Next();
+        for i := 1 to RefRent.Count() do begin
+            if RefRent.Status = RefRent.Status::PoLhute then begin
+                RefRent.statusStyle := 'Unfavorable';
+            end else
+                if RefRent.Status = RefRent.Status::Vraceno then begin
+                    RefRent.statusStyle := 'Favorable';
+                end else begin
+                    RefRent.statusStyle := 'Strong';
+                end;
+            RefRent.Modify();
+            RefRent.Next();
+        end
     end;
 }

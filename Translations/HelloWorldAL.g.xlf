@@ -44,7 +44,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field NoRent - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 2645064470 - Field 1430172545 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Číslo zařízení</source>
+          <source>Předchozí číslo zařízení</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field PrevNoDev - Property Caption</note>
         </trans-unit>
@@ -62,6 +62,11 @@
           <source>Vypůjčeno, Vráceno, Po Lhůtě</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field Status - Property OptionCaption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 1502388989 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Styl statusu</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field statusStyle - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 2645064470 - Field 4011129519 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Do kdy</source>
