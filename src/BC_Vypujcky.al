@@ -314,19 +314,26 @@ page 50101 RentPage
                 trigger OnAction()
                 var
                     RefDev: Record DevTab;
+                    tmp: Boolean;
                 begin
                     //zmena stavu na vraceno a pridani poctu zarizeni na skladu
-                    Rec.Status := Rec.Status::Vraceno;
-                    Rec.Modify();
+                    tmp := Dialog.Confirm('Opravdu chceš změnit stav na "Vráceno"?', true);
 
-                    for i := 1 to RefDev.Count() do begin
-                        if RefDev.NoDev <> Rec.NoDev then begin
-                            RefDev.Next();
+                    if tmp then begin
+                        if Rec.Status <> Rec.Status::Vraceno then begin
+                            Rec.Status := Rec.Status::Vraceno;
+                            Rec.Modify();
+
+                            for i := 1 to RefDev.Count() do begin
+                                if RefDev.NoDev <> Rec.NoDev then begin
+                                    RefDev.Next();
+                                end;
+                            end;
+
+                            RefDev.Amount := RefDev.Amount + 1;
+                            RefDev.Modify();
                         end;
                     end;
-
-                    RefDev.Amount := RefDev.Amount + 1;
-                    RefDev.Modify();
                 end;
             }
         }
