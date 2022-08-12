@@ -2,6 +2,7 @@
 // Remember that object names and IDs should be unique across all extensions.
 // AL snippets start with t*, like tpageext - give them a try and happy coding!
 
+
 table 50100 DevTab
 {
     DataClassification = ToBeClassified;
@@ -70,6 +71,8 @@ page 50100 DevPage
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
+                    NotBlank = true;
+                    ShowMandatory = true;
                 }
 
                 field(Description; Rec.Description)
@@ -249,6 +252,14 @@ page 50101 RentPage
                 {
                     ApplicationArea = All;
                     NotBlank = true;
+
+                    trigger OnValidate()
+                    begin
+                        if Rec.Since > Rec.Till then begin
+                            Rec.Since := Rec.Till;
+                            Message('Zadal jsi špatny datum.');
+                        end;
+                    end;
                 }
 
                 field(Till; Rec.Till)
@@ -256,6 +267,24 @@ page 50101 RentPage
                     ApplicationArea = All;
                     NotBlank = true;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        RefRent: Record RentDev;
+                    begin
+                        if Rec.Since > Rec.Till then begin
+                            Rec.Till := Rec.Since;
+                            Message('Zadal jsi špatny datum.');
+                        end;
+
+                        if Rec.Till < DT2DATE(CurrentDateTime) then begin
+                            Rec.Status := Rec.Status::PoLhute;
+                            Rec.Modify();
+                            Rec.statusStyle := 'Unfavorable';
+                            Rec.Modify();
+                        end;
+
+                    end;
                 }
 
                 field(Contact; Rec.Contact)
@@ -304,11 +333,6 @@ page 50101 RentPage
         mess: Text;
     begin
         //detekce nevyplnenych poli a nasledne upozorneni uzivatele
-        if Rec.Since > Rec.Till then begin
-            Rec.Till := Rec.Since;
-            mess := mess + 'Zadal jsi špatny datum.\';
-        end;
-
         if Rec.NoDev = 0 then begin
             mess := mess + 'Nebylo zvoleno zařízení.\';
         end;
