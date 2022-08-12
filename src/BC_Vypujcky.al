@@ -323,15 +323,16 @@ page 50101 RentPage
                         if Rec.Status <> Rec.Status::Vraceno then begin
                             Rec.Status := Rec.Status::Vraceno;
                             Rec.Modify();
-
-                            for i := 1 to RefDev.Count() do begin
-                                if RefDev.NoDev <> Rec.NoDev then begin
-                                    RefDev.Next();
+                            if RefDev.NoDev <> 0 then begin
+                                for i := 1 to RefDev.Count() do begin
+                                    if RefDev.NoDev <> Rec.NoDev then begin
+                                        RefDev.Next();
+                                    end;
                                 end;
-                            end;
 
-                            RefDev.Amount := RefDev.Amount + 1;
-                            RefDev.Modify();
+                                RefDev.Amount := RefDev.Amount + 1;
+                                RefDev.Modify();
+                            end;
                         end;
                     end;
                 end;
