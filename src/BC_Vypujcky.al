@@ -236,7 +236,9 @@ page 50101 RentPage
                                 RefEmp.Next();
                         end;
 
-                        Rec.Contact := RefEmp."E-Mail";
+                        if RefEmp."No." = Rec.NoEmp then begin
+                            Rec.Contact := RefEmp."E-Mail";
+                        end;
                     end;
                 }
 
