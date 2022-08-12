@@ -402,6 +402,8 @@ page 50101 RentPage
             if (RefRent.Status = RefRent.Status::Vypujceno) and (RefRent.Till < DT2DATE(CurrentDateTime)) then begin
                 RefRent.Status := RefRent.Status::PoLhute;
                 RefRent.Modify();
+                RefRent.StatusStyle := 'Unfavorable';
+                RefRent.Modify();
                 flag := true;
             end;
             RefRent.Next();
