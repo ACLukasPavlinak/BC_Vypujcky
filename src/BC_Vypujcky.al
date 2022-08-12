@@ -83,6 +83,14 @@ page 50100 DevPage
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    begin
+                        if Rec.Amount < 0 then begin
+                            Message('Zadal jsi špatný počet zařízení');
+                            Rec.Amount := 0;
+                        end;
+                    end;
                 }
             }
         }
@@ -281,16 +289,12 @@ page 50101 RentPage
 
                         if Rec.Till < DT2DATE(CurrentDateTime) then begin
                             Rec.Status := Rec.Status::PoLhute;
-                            Rec.Modify();
                             Rec.statusStyle := 'Unfavorable';
-                            Rec.Modify();
                         end;
 
                         if Rec.Till >= DT2DATE(CurrentDateTime) then begin
                             Rec.Status := Rec.Status::Vypujceno;
-                            Rec.Modify();
                             Rec.statusStyle := 'Strong';
-                            Rec.Modify();
                         end;
 
                     end;
