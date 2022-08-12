@@ -284,6 +284,13 @@ page 50101 RentPage
                             Rec.Modify();
                         end;
 
+                        if Rec.Till >= DT2DATE(CurrentDateTime) then begin
+                            Rec.Status := Rec.Status::Vypujceno;
+                            Rec.Modify();
+                            Rec.statusStyle := 'Strong';
+                            Rec.Modify();
+                        end;
+
                     end;
                 }
 
