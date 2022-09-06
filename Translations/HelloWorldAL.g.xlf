@@ -3,6 +3,11 @@
   <file datatype="xml" source-language="en-US" target-language="en-US" original="HelloWorldAL">
     <body>
       <group id="body">
+        <trans-unit id="Table 3009710092 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Zařízení</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table DevTab - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 3009710092 - Field 636392376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Počet</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -82,6 +87,16 @@
           <source>Výpůjčky</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page RentPage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2456139005 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Zařízení</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Zarizeni_card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4198653835 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Můj report</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Zarizeni_report - Property Caption</note>
         </trans-unit>
       </group>
     </body>

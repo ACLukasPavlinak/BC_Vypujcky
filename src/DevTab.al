@@ -1,6 +1,11 @@
 table 50100 DevTab
 {
     DataClassification = ToBeClassified;
+    Caption = 'Zařízení';
+    DrillDownPageId = "DevPage";
+    LookupPageId = "Devpage";
+    DataCaptionFields = NoDev, Name;
+
     fields
     {
         field(1; NoDev; Integer)
@@ -30,6 +35,14 @@ table 50100 DevTab
         {
             DataClassification = ToBeClassified;
             Caption = 'Počet';
+
+            trigger OnValidate()
+            begin
+                if Rec.Amount < 0 then begin
+                    Message('Zadal jsi špatný počet zařízení');
+                    Rec.Amount := 0;
+                end;
+            end;
         }
     }
     keys

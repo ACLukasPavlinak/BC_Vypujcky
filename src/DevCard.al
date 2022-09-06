@@ -1,33 +1,32 @@
-page 50100 DevPage
+page 50102 "Zarizeni_card"
 {
-    PageType = List;
-    ApplicationArea = All;
-    UsageCategory = Lists;
+    PageType = Card;
     SourceTable = DevTab;
-    CardPageId = Zarizeni_card;
-    Caption = 'Zařízení na vypůjčení';
-
+    Caption = 'Zařízení';
 
     layout
     {
         area(Content)
         {
-            repeater(Group)
+            group(Obecné)
             {
                 field(No; Rec.NoDev)
                 {
                     ApplicationArea = All;
-                    Style = Strong;
                     Editable = false;
+                    Style = Strong;
                 }
 
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
-                    NotBlank = true;
                     ShowMandatory = true;
+                    NotBlank = true;
                 }
+            }
 
+            group(Detaily)
+            {
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
@@ -37,23 +36,6 @@ page 50100 DevPage
                 {
                     ApplicationArea = All;
                 }
-            }
-        }
-    }
-
-    actions
-    {
-        area(Processing)
-        {
-            action("Můj report")
-            {
-                Promoted = true;
-                PromotedCategory = Process;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    report.Run(Report::Zarizeni_report);
-                end;
             }
         }
     }
