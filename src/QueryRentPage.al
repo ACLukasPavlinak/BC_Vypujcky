@@ -42,12 +42,4 @@ query 50105 QueryRentPage
             }
         }
     }
-
-    var
-        myInt: Integer;
-
-    trigger OnBeforeOpen()
-    begin
-
-    end;
 }
