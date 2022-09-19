@@ -5,6 +5,7 @@ page 50101 RentPage
     UsageCategory = Lists;
     SourceTable = RentDev;
     Caption = 'Výpůjčky';
+    RefreshOnActivate = true;
 
     layout
     {
@@ -185,24 +186,6 @@ page 50101 RentPage
     protected var
         i: Integer;
 
-    trigger OnModifyRecord(): Boolean
-    var
-        mess: Text;
-    begin
-        //detekce nevyplnenych poli a nasledne upozorneni uzivatele
-        if Rec.NoDev = 0 then begin
-            mess := mess + 'Nebylo zvoleno zařízení.\';
-        end;
-
-        if Rec.NoEmp = '' then begin
-            mess := mess + 'Nebyl zvolen zamestnanec.';
-        end;
-
-        if mess <> '' then begin
-            Message(mess);
-        end;
-    end;
-
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         //automaticke vlozeni pocatecniho data na dnesni datum
@@ -267,5 +250,19 @@ page 50101 RentPage
             RefRent.Modify();
             RefRent.Next();
         end
+    end;
+
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    begin
+        if (Rec.NoRent > 0) and ((Rec.NoDev = 0) or (Rec.NoEmp = '')) then begin
+            Rec.Delete(true);
+            Message('Nebyl zvolen zaměstnanec nebo zařízení, záznam byl smazán.');
+        end else begin
+            if (Rec.Till = 0D) then begin
+                Rec.Till := DT2DATE(CurrentDateTime());
+                Rec.Modify();
+                Message('Nezadal jsi datum konce výpůjčky. Amutomaticky bylo doplněno dnešní.');
+            end;
+        end;
     end;
 }

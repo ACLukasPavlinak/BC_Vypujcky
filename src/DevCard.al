@@ -39,4 +39,10 @@ page 50102 "Zarizeni_card"
             }
         }
     }
+
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    begin
+        if (Rec.Name = '') and (Rec.NoDev > 0) then
+            Rec.Delete(True);
+    end;
 }

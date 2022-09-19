@@ -6,7 +6,7 @@ page 50100 DevPage
     SourceTable = DevTab;
     CardPageId = Zarizeni_card;
     Caption = 'Zařízení na vypůjčení';
-
+    RefreshOnActivate = true;
 
     layout
     {
