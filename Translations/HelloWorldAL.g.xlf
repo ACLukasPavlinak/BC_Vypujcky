@@ -94,7 +94,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Zarizeni_card - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4198653835 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Můj report</source>
+          <source>Report zařízení</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Zarizeni_report - Property Caption</note>
         </trans-unit>

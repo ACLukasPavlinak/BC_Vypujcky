@@ -45,15 +45,18 @@ page 50100 DevPage
     {
         area(Processing)
         {
-            action("Můj report")
+            action("Report zařízení")
             {
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
+                RunObject = report Zarizeni_report;
+                /*
                 trigger OnAction()
                 begin
                     report.Run(Report::Zarizeni_report);
                 end;
+                */
             }
         }
     }

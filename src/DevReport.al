@@ -2,7 +2,7 @@ report 50104 "Zarizeni_report"
 {
     DefaultLayout = Word;
     WordLayout = 'Zarizeni_report.docx';
-    Caption = 'Můj report';
+    Caption = 'Report zařízení';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
