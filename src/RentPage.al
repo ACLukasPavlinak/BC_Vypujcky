@@ -30,7 +30,7 @@ page 50101 RentPage
 
                     trigger OnValidate()
                     var
-                        dev, dev2 : Record DevTab;
+                        dev, dev2, RefDev : Record DevTab;
                     begin
                         //pokud se nezmeni zarizeni nic se nebude delat
                         if Rec.NoDev <> Rec.PrevNoDev then begin
@@ -62,7 +62,23 @@ page 50101 RentPage
 
                             Rec.PrevNoDev := Rec.NoDev;
                         end;
+
+                        for i := 1 to RefDev.Count() do begin
+                            if RefDev.NoDev <> Rec.NoDev then
+                                RefDev.Next();
+                        end;
+
+                        if RefDev.NoDev = Rec.NoDev then begin
+                            Rec.DevName := RefDev.Name;
+                        end;
                     end;
+                }
+
+                field(DevName; Rec.DevName)
+                {
+                    ApplicationArea = All;
+                    NotBlank = true;
+                    Editable = false;
                 }
 
                 field(NoEmp; Rec.NoEmp)
@@ -83,8 +99,16 @@ page 50101 RentPage
 
                         if RefEmp."No." = Rec.NoEmp then begin
                             Rec.Contact := RefEmp."E-Mail";
+                            Rec.EmpName := RefEmp.FullName();
                         end;
                     end;
+                }
+
+                field(EmpName; Rec.EmpName)
+                {
+                    ApplicationArea = All;
+                    NotBlank = true;
+                    Editable = false;
                 }
 
                 field(Status; Rec.Status)
@@ -179,6 +203,14 @@ page 50101 RentPage
                         end;
                     end;
                 end;
+            }
+
+            action("Report zařízení")
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                RunObject = report Vypujcky_report;
             }
         }
     }

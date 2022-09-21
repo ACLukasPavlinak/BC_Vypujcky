@@ -33,6 +33,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field Contact - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 2715412972 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Název zařízení</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field DevName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2645064470 - Field 171147721 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Jméno zaměstnance</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table RentDev - Field EmpName - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2645064470 - Field 2514449978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Číslo zařízení</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -92,6 +102,11 @@
           <source>Zařízení</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Zarizeni_card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2948678460 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report výpůjček</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Vypujcky_report - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4198653835 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Report zařízení</source>

@@ -52,6 +52,16 @@ table 50101 RentDev
         {
             Caption = 'Kontakt';
         }
+
+        field(10; EmpName; Text[50])
+        {
+            Caption = 'Jméno zaměstnance';
+        }
+
+        field(11; DevName; Text[50])
+        {
+            Caption = 'Název zařízení';
+        }
     }
 
     keys
