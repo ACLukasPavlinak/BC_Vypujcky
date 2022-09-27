@@ -158,8 +158,13 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page DevPage - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 2063329519 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Overview Rent Matrix</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page OverviewRentMatrix - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 2023784207 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>OverviewRentPage</source>
+          <source>Matice výpujček</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page OverviewRentPage - Property Caption</note>
         </trans-unit>
