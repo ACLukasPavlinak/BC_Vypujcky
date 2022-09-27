@@ -285,16 +285,23 @@ page 50101 RentPage
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
+    var
+        RefRent: Record RentDev;
+
     begin
-        if (Rec.NoRent > 0) and ((Rec.NoDev = 0) or (Rec.NoEmp = '')) then begin
-            Rec.Delete(true);
-            Message('Nebyl zvolen zaměstnanec nebo zařízení, záznam byl smazán.');
-        end else begin
-            if (Rec.Till = 0D) then begin
-                Rec.Till := DT2DATE(CurrentDateTime());
-                Rec.Modify();
-                Message('Nezadal jsi datum konce výpůjčky. Amutomaticky bylo doplněno dnešní.');
+        RefRent.Next();
+        for i := 1 to RefRent.Count() do begin
+            if (RefRent.NoRent > 0) and ((RefRent.NoDev = 0) or (RefRent.NoEmp = '')) then begin
+                RefRent.Delete(true);
+                Message('Nebyl zvolen zaměstnanec nebo zařízení, záznam byl smazán.');
+            end else begin
+                if (RefRent.Till = 0D) then begin
+                    RefRent.Till := DT2DATE(CurrentDateTime());
+                    RefRent.Modify();
+                    Message('Nezadal jsi datum konce výpůjčky. Amutomaticky bylo doplněno dnešní.');
+                end;
             end;
+            RefRent.Next();
         end;
     end;
 }
