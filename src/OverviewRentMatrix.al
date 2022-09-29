@@ -19,70 +19,70 @@ page 50104 OverviewRentMatrix
                     Editable = false;
                 }
 
-                field(Field1; Rec.colum1)
+                field(Field1; MATRIX_CellData[1])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[1];
                     Visible = Field1Visible;
                     BlankZero = true;
                 }
-                field(Field2; Rec.colum2)
+                field(Field2; MATRIX_CellData[2])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[2];
                     Visible = Field2Visible;
                     BlankZero = true;
                 }
-                field(Field3; Rec.colum3)
+                field(Field3; MATRIX_CellData[3])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[3];
                     Visible = Field3Visible;
                     BlankZero = true;
                 }
-                field(Field4; Rec.colum4)
+                field(Field4; MATRIX_CellData[4])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[4];
                     Visible = Field4Visible;
                     BlankZero = true;
                 }
-                field(Field5; Rec.colum5)
+                field(Field5; MATRIX_CellData[5])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[5];
                     Visible = Field5Visible;
                     BlankZero = true;
                 }
-                field(Field6; Rec.colum6)
+                field(Field6; MATRIX_CellData[6])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[6];
                     Visible = Field6Visible;
                     BlankZero = true;
                 }
-                field(Field7; Rec.colum7)
+                field(Field7; MATRIX_CellData[7])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[7];
                     Visible = Field7Visible;
                     BlankZero = true;
                 }
-                field(Field8; Rec.colum8)
+                field(Field8; MATRIX_CellData[8])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[8];
                     Visible = Field8Visible;
                     BlankZero = true;
                 }
-                field(Field9; Rec.colum9)
+                field(Field9; MATRIX_CellData[9])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[9];
                     Visible = Field9Visible;
                     BlankZero = true;
                 }
-                field(Field10; Rec.colum10)
+                field(Field10; MATRIX_CellData[10])
                 {
                     ApplicationArea = Planning;
                     CaptionClass = MATRIX_CaptionSet[10];
@@ -107,11 +107,23 @@ page 50104 OverviewRentMatrix
         Field1Visible := true;
 
         SetEmp();
-        SetCellData();
+
+
+        Field1Visible := MATRIX_CaptionSet[1] <> '';
+        Field2Visible := MATRIX_CaptionSet[2] <> '';
+        Field3Visible := MATRIX_CaptionSet[3] <> '';
+        Field4Visible := MATRIX_CaptionSet[4] <> '';
+        Field5Visible := MATRIX_CaptionSet[5] <> '';
+        Field6Visible := MATRIX_CaptionSet[6] <> '';
+        Field7Visible := MATRIX_CaptionSet[7] <> '';
+        Field8Visible := MATRIX_CaptionSet[8] <> '';
+        Field9Visible := MATRIX_CaptionSet[9] <> '';
+        Field10Visible := MATRIX_CaptionSet[10] <> '';
     end;
 
     var
         MATRIX_CaptionSet: array[10] of Text[32];
+        MATRIX_CellData: array[32] of Decimal;
         [InDataSet]
         Field1Visible: Boolean;
         [InDataSet]
@@ -180,98 +192,25 @@ page 50104 OverviewRentMatrix
             end;
 
         end;
-
-        Field1Visible := MATRIX_CaptionSet[1] <> '';
-        Field2Visible := MATRIX_CaptionSet[2] <> '';
-        Field3Visible := MATRIX_CaptionSet[3] <> '';
-        Field4Visible := MATRIX_CaptionSet[4] <> '';
-        Field5Visible := MATRIX_CaptionSet[5] <> '';
-        Field6Visible := MATRIX_CaptionSet[6] <> '';
-        Field7Visible := MATRIX_CaptionSet[7] <> '';
-        Field8Visible := MATRIX_CaptionSet[8] <> '';
-        Field9Visible := MATRIX_CaptionSet[9] <> '';
-        Field10Visible := MATRIX_CaptionSet[10] <> '';
     end;
 
-    procedure SetCellData()
+    trigger OnAfterGetRecord()
     var
-        dev: Record DevTab;
-        emp: Record Employee;
-        rent: Record RentDev;
-        matrix: array[10, 10] of Integer;
-        row: Integer;
-        col: Integer;
-        tmpNo: Integer;
-        tmpName: Text[32];
+        rents: Record RentDev;
+        i, x : Integer;
     begin
-        while rent.NoDev = 0 do begin
-            rent.Next();
+        rents.Next();
+        for i := 1 to 10 do begin
+            MATRIX_CellData[i] := 0;
         end;
-        tmpNo := 0;
 
-        while rent.NoRent <> tmpNo do begin
-            tmpNo := rent.NoRent;
-            row := 1;
-            col := 1;
-            if rent.Status <> rent.Status::Vraceno then begin
-                while dev.Name = '' do begin
-                    dev.Next();
+        for i := 1 to rents.Count do begin
+            if rents.DevName = Rec.DevName then begin
+                for x := 1 to 10 do begin
+                    if (rents.EmpName = MATRIX_CaptionSet[x]) and (rents.Status <> rents.Status::Vraceno) then MATRIX_CellData[x] := MATRIX_CellData[x] + 1;
                 end;
-
-                while dev.Name <> rent.DevName do begin
-                    row := row + 1;
-                    dev.Next();
-                end;
-
-                if emp."No." = '' then begin
-                    emp.Next();
-                end;
-
-
-                while emp.FullName() <> rent.EmpName do begin
-                    col := col + 1;
-                    emp.Next();
-                end;
-
-                matrix[row, col] := matrix[row, col] + 1;
             end;
-            dev.FindFirst();
-            emp.FindFirst();
-            rent.Next();
-        end;
-
-        row := 1;
-
-        rec.FindFirst();
-        while rec.DevName = '' do begin
-            rec.Next();
-        end;
-
-        while Rec.DevName <> tmpName do begin
-            tmpName := Rec.DevName;
-            Rec.colum1 := matrix[row, 1];
-            Rec.Modify();
-            Rec.colum2 := matrix[row, 2];
-            Rec.Modify();
-            Rec.colum3 := matrix[row, 3];
-            Rec.Modify();
-            Rec.colum4 := matrix[row, 4];
-            Rec.Modify();
-            Rec.colum5 := matrix[row, 5];
-            Rec.Modify();
-            Rec.colum6 := matrix[row, 6];
-            Rec.Modify();
-            Rec.colum7 := matrix[row, 7];
-            Rec.Modify();
-            Rec.colum8 := matrix[row, 8];
-            Rec.Modify();
-            Rec.colum9 := matrix[row, 9];
-            Rec.Modify();
-            Rec.colum10 := matrix[row, 10];
-            Rec.Modify();
-
-            Rec.Next();
-            row := row + 1;
+            rents.Next();
         end;
     end;
 }
