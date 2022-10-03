@@ -1,4 +1,4 @@
-report 50104 "Zarizeni_report"
+report 50107 "Zarizeni_report_Excel"
 {
     DefaultLayout = Word;
     WordLayout = 'Zarizeni_report.docx';

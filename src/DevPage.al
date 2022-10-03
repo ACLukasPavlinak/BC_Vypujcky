@@ -50,7 +50,7 @@ page 50100 DevPage
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-                RunObject = report Zarizeni_report;
+                RunObject = report Zarizeni_report_Word;
                 /*
                 trigger OnAction()
                 begin
