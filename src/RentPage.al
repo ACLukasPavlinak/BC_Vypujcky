@@ -212,6 +212,14 @@ page 50101 RentPage
                 ApplicationArea = All;
                 RunObject = report Vypujcky_report;
             }
+
+            action("Report zařízení RDLC")
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                RunObject = report Vypujcky_report_RDLC;
+            }
         }
     }
 

@@ -1,7 +1,7 @@
-report 50107 "Zarizeni_report_Excel"
+report 50108 "Zarizeni_report_RDLC"
 {
-    DefaultLayout = Excel;
-    ExcelLayout = 'Zarizeni_report.xlsx';
+    DefaultLayout = RDLC;
+    RDLCLayout = 'Zarizeni_report.rdl';
     Caption = 'Report zařízení';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

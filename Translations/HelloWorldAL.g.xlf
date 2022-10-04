@@ -183,10 +183,25 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report Vypujcky_report - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 4198653835 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 2172703234 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report výpůjček</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Vypujcky_report_RDLC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2991834867 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Report zařízení</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report Zarizeni_report - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Zarizeni_report_Excel - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2477450041 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report zařízení</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Zarizeni_report_RDLC - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1137545932 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Report zařízení</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report Zarizeni_report_Word - Property Caption</note>
         </trans-unit>
       </group>
     </body>

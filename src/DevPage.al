@@ -45,7 +45,7 @@ page 50100 DevPage
     {
         area(Processing)
         {
-            action("Report zařízení")
+            action("Report zařízení Word")
             {
                 Promoted = true;
                 PromotedCategory = Process;
@@ -57,6 +57,22 @@ page 50100 DevPage
                     report.Run(Report::Zarizeni_report);
                 end;
                 */
+            }
+
+            action("Report zařízení Excel")
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                RunObject = report Zarizeni_report_Excel;
+            }
+
+            action("Report zařízení RDLC")
+            {
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                RunObject = report Zarizeni_report_RDLC;
             }
         }
     }
